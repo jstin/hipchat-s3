@@ -41,7 +41,7 @@ private
   def tar_with_path(path)
     cmd_path = `which tar`.strip
     tarred_path = "#{path}.tar.gz"
-    `#{cmd_path} -czf #{tarred_path} #{path}`
+    `#{cmd_path} czf #{tarred_path} #{path}`
     tarred_path
   end
 
