@@ -1,0 +1,3 @@
+h1. Hipchat S3
+
+A way to send file uploads to your hipchat channel using s3
