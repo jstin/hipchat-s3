@@ -19,7 +19,7 @@ class HipchatS3
   end
 
   def create_compressed_upload(path, room, options={})
-    {:username => 'fileuploader', :message => "File Uploaded", :color => 'yellow'}.merge(options)
+    options = {:username => 'fileuploader', :message => "File Uploaded", :color => 'yellow'}.merge(options)
     
     unless tar_exists?
       @hipchat_client[room].send(username, "You don't have tar installed on host", :notify => true, :color => color)
@@ -34,7 +34,7 @@ class HipchatS3
   end
 
   def create_file_upload(file_path, room, options={})
-    {:username => 'fileuploader', :message => "File Uploaded", :color => 'yellow'}.merge(options)
+    options = {:username => 'fileuploader', :message => "File Uploaded", :color => 'yellow'}.merge(options)
     basename = "#{Time.now.strftime("%Y_%m_%d_%H_%M_%S")}/#{File.basename(file_path)}"
 
     AWS::S3::S3Object.store(basename, open(file_path), @s3_bucket, :access => :public_read)
@@ -43,7 +43,7 @@ class HipchatS3
 
 
   def create_inline_image(image_path, room, options={})
-      {:thumbnail_path => nil, :username => 'fileuploader', :message => "Image Uploaded", :color => 'yellow'}.merge(options)
+      options = {:thumbnail_path => nil, :username => 'fileuploader', :message => "Image Uploaded", :color => 'yellow'}.merge(options)
 
       timestamp = Time.now.strftime("%Y_%m_%d_%H_%M_%S")
       basename = File.basename(image_path)
@@ -58,7 +58,7 @@ class HipchatS3
         AWS::S3::S3Object.store("#{timestamp}/#{thumb_basename}", open(options[:thumbnail_path]), @s3_bucket, :access => :public_read)
         link_uri = "https://s3.amazonaws.com/#{@s3_bucket}/#{timestamp}/#{thumb_basename}"
       end
-
+puts options.inspect
       @hipchat_client[room].send(options[:username], "#{options[:message]} <br/> <a href=\"#{link_uri}\"><img src=\"#{uri}\" /></a>", :notify => true, :color => options[:color])
     end
 
