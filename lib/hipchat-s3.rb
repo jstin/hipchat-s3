@@ -27,7 +27,7 @@ class HipchatS3
     file = tar_with_path(path)
     basename = File.basename(file)
 
-    AWS::S3::S3Object.store(basename, open(path), @s3_bucket, :access => :public_read)
+    AWS::S3::S3Object.store(basename, open(file), @s3_bucket, :access => :public_read)
     @hipchat_client[room].send(username, "#{message} :: <a href=\"https://s3.amazonaws.com/#{@s3_bucket}/#{basename}\">#{basename}</a>", :notify => true, :color => color)
   end
 
