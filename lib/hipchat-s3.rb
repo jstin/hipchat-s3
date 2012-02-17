@@ -43,19 +43,20 @@ class HipchatS3
 
 
   def create_inline_image(image_path, room, options={})
-      {:thumbnail => nil, :username => 'fileuploader', :message => "Image Uploaded", :color => 'yellow'}.merge(options)
+      {:thumbnail_path => nil, :username => 'fileuploader', :message => "Image Uploaded", :color => 'yellow'}.merge(options)
 
       timestamp = Time.now.strftime("%Y_%m_%d_%H_%M_%S")
       basename = File.basename(image_path)
 
       AWS::S3::S3Object.store("#{timestamp}/#{basename}", open(image_path), @s3_bucket, :access => :public_read)
 
-      uri = "https://s3.amazonaws.com/#{@s3_bucket}/#{basename}"
+      uri = "https://s3.amazonaws.com/#{@s3_bucket}/#{timestamp}/#{basename}"
       link_uri = uri
 
-      if options[:thumbnail]
-        AWS::S3::S3Object.store("#{timestamp}/thumb-#{basename}", open(image_path), @s3_bucket, :access => :public_read)
-        link_uri = "https://s3.amazonaws.com/#{@s3_bucket}/thumb-#{basename}"
+      if options[:thumbnail_path]
+        thumb_basename = File.basename(options[:thumbnail_path])
+        AWS::S3::S3Object.store("#{timestamp}/#{thumb_basename}", open(options[:thumbnail_path]), @s3_bucket, :access => :public_read)
+        link_uri = "https://s3.amazonaws.com/#{@s3_bucket}/#{timestamp}/#{thumb_basename}"
       end
 
       @hipchat_client[room].send(options[:username], "#{options[:message]} <br/> <a href=\"#{link_uri}\"><img src=\"#{uri}\" /></a>", :notify => true, :color => options[:color])
