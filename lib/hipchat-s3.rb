@@ -51,15 +51,15 @@ class HipchatS3
       AWS::S3::S3Object.store("#{timestamp}/#{basename}", open(image_path), @s3_bucket, :access => :public_read)
 
       uri = "https://s3.amazonaws.com/#{@s3_bucket}/#{timestamp}/#{basename}"
-      link_uri = uri
+      display_uri = uri
 
       if options[:thumbnail_path]
         thumb_basename = File.basename(options[:thumbnail_path])
         AWS::S3::S3Object.store("#{timestamp}/#{thumb_basename}", open(options[:thumbnail_path]), @s3_bucket, :access => :public_read)
-        link_uri = "https://s3.amazonaws.com/#{@s3_bucket}/#{timestamp}/#{thumb_basename}"
+        display_uri = "https://s3.amazonaws.com/#{@s3_bucket}/#{timestamp}/#{thumb_basename}"
       end
-puts options.inspect
-      @hipchat_client[room].send(options[:username], "#{options[:message]} <br/> <a href=\"#{link_uri}\"><img src=\"#{uri}\" /></a>", :notify => true, :color => options[:color])
+
+      @hipchat_client[room].send(options[:username], "#{options[:message]} <br/> <a href=\"#{uri}\"><img src=\"#{display_uri}\" /></a>", :notify => true, :color => options[:color])
     end
 
 
