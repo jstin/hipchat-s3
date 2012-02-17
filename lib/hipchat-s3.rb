@@ -8,8 +8,8 @@ class HipchatS3
 
   def initialize(options = {})
 
-    s3_creds = options.fetch(:s3, {:access_key_id => 'your-key', :secret_access_key => 'your-secret', :bucket => 'bucket'})
-    hipchat_creds = options.fetch(:hipchat, {:api_token => 'your-token'})
+    s3_creds = options.fetch(:s3, {:access_key_id => 'your-key', :secret_access_key => 'your-secret', :bucket => 'bucket'}).symbolize_keys
+    hipchat_creds = options.fetch(:hipchat, {:api_token => 'your-token'}).symbolize_keys
 
     @s3_bucket = s3_creds.delete(:bucket)
 
