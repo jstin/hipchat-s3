@@ -1,5 +1,5 @@
 require 'hipchat'
-require 'aws-s3'
+require 'aws/s3'
 
 module HipchatS3
 
