@@ -1,7 +1,7 @@
 require 'hipchat'
 require 'aws/s3'
 
-module HipchatS3
+class HipchatS3
 
   def initialize(options = {})
 
