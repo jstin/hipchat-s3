@@ -32,6 +32,19 @@ class HipchatS3
   end
 
 
+  def create_inline_image(image_path, room, username='fileuploader', message="Image Uploaded", color='yellow')
+      unless tar_exists?
+        @hipchat_client[room].send(username, "You don't have tar installed on host", :notify => true, :color => color)
+        return
+      end
+
+      basename = File.basename(image_path)
+
+      AWS::S3::S3Object.store(basename, open(image_path), @s3_bucket, :access => :public_read)
+      @hipchat_client[room].send(username, "#{message} :: <img src=\"https://s3.amazonaws.com/#{@s3_bucket}/#{basename}\" />", :notify => true, :color => color)
+    end
+
+
 private
   
   def tar_exists?
