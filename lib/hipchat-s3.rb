@@ -3,6 +3,9 @@ require 'aws/s3'
 
 class HipchatS3
 
+  attr_reader :hipchat_client
+  attr_accessor :s3_bucket
+
   def initialize(options = {})
 
     s3_creds = options.fetch(:s3, {:access_key_id => 'your-key', :secret_access_key => 'your-secret', :bucket => 'bucket'})
