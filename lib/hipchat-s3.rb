@@ -41,7 +41,8 @@ class HipchatS3
       basename = File.basename(image_path)
 
       AWS::S3::S3Object.store(basename, open(image_path), @s3_bucket, :access => :public_read)
-      @hipchat_client[room].send(username, "#{message} :: <img src=\"https://s3.amazonaws.com/#{@s3_bucket}/#{basename}\" />", :notify => true, :color => color)
+      uri = "https://s3.amazonaws.com/#{@s3_bucket}/#{basename}"
+      @hipchat_client[room].send(username, "#{message} :: <a href=\"#{uri}\"><img src=\"#{uri}\" width=\"320\" height=\"240\" /></a>", :notify => true, :color => color)
     end
 
 
