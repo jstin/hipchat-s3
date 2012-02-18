@@ -19,8 +19,6 @@ hipchat_s3.create_compressed_upload(path_to_compress, hipchat_room_id, {:message
 # uploads an uncompressed file to s3, displays link in chat
 hipchat_s3.create_file_upload(file_path, hipchat_room_id, {:username => "FileManager"})
 
-p.
-
 h2. Methods
 
 bc.. create_compressed_upload(path, room, options={})
