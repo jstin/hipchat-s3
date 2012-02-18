@@ -36,20 +36,19 @@ create_inline_image(image_path, room, options={})
 # Default options for create_inline_image
 {:thumbnail_path => nil, :username => 'fileuploader', :message => "Image Uploaded", :color => 'yellow'}
 
-h2. Rspec hool
+h2. Rspec hook
 
 bc.. config.after(:each) do
-
   if example.exception
 
     message = "#{example.full_description} <br/> #{example.location}"
+    hipchat_s3 ||= HipchatS3.new(HIPCHAT_S3)
 
     if example.metadata[:type] == :acceptance && example.metadata[:js] == true
       page.driver.browser.save_screenshot("failure.jpg")
-      hipchat_s3 ||= HipchatS3.new(HIPCHAT_S3)
       hipchat_s3.create_inline_image("failure.jpg", hipchat_id, {:message => message, :username => "Failmaster", :color => "red"})
     else
-      hipchat_s3.hipchat_client[hipchat_room_id].send("Enforcer", "Failure! YOU BROKE THE BUILD <br/> #{message}", :notify => true, :color => "red")
+      hipchat_s3.hipchat_client[hipchat_id].send("Enforcer", "Failure! YOU BROKE THE BUILD <br/> #{message}", :notify => true, :color => "red")
     end
 
   end
