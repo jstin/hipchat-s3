@@ -2,6 +2,8 @@ h1. Hipchat S3
 
 A way to send file uploads to your hipchat channel using s3
 
+Uses the "hipchat gem":https://github.com/mojotech/hipchat and the "aws-s3":https://github.com/marcel/aws-s3
+
 h2. Usage
 
 bc.. hipchat_s3 = HipchatS3.new({:s3 => {:access_key_id => 'your-key', :secret_access_key => 'your-secret', :bucket => 'bucket'}, :hipchat => {:api_token => 'your-token'}})
@@ -18,6 +20,9 @@ hipchat_s3.create_compressed_upload(path_to_compress, hipchat_room_id, {:message
 
 # uploads an uncompressed file to s3, displays link in chat
 hipchat_s3.create_file_upload(file_path, hipchat_room_id, {:username => "FileManager"})
+
+# you can also access the chat object directly
+hipchat_s3.hipchat_client[hipchat_room_id].send("Enforcer", "Failure! You can't do that!!!", :notify => true, :color => "red")
 
 h2. Methods
 
