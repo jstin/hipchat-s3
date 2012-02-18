@@ -1,3 +1,30 @@
 h1. Hipchat S3
 
 A way to send file uploads to your hipchat channel using s3
+
+h2. Usage
+
+bc.. hipchat_s3 = HipchatS3.new({:s3 => {:access_key_id => 'your-key', :secret_access_key => 'your-secret', :bucket => 'bucket'}, :hipchat => {:api_token => 'your-token'}})
+hipchat_s3.s3_bucket = "another_bucket" # you can change your bucket name whenever you need
+
+hipchat_s3.create_inline_image('image_path.jpg', hipchat_room_id, {:thumbnail_path => "thumb_path.jpg", :username => "Magic", :message => "message", :color => "green"}) # displays thumbnail in chat that links to full size image
+hipchat_s3.create_inline_image('image_path.jpg', hipchat_room_id) # displays full size image, no thumbnail, directly in the chat
+hipchat_s3.create_compressed_upload(path_to_compress, hipchat_room_id, {:message => "Files Compressed", :color => "green"}) # compresses a directory or file and uploads a tar.gz, linked to the room
+hipchat_s3.create_file_upload(file_path, hipchat_room_id, {:username => "FileManager"}) # uploads an uncompressed file to s3, displays link in chat
+
+
+h2. Methods
+
+bc.. create_compressed_upload(path, room, options={})
+create_file_upload(file_path, room, options={})
+create_inline_image(image_path, room, options={})
+
+## Default options
+{:username => 'fileuploader', :message => "File Uploaded", :color => 'yellow'}
+
+## Default options for create_inline_image
+{:thumbnail_path => nil, :username => 'fileuploader', :message => "Image Uploaded", :color => 'yellow'}
+
+
+
+  
