@@ -30,7 +30,3 @@ create_inline_image(image_path, room, options={})
 
 # Default options for create_inline_image
 {:thumbnail_path => nil, :username => 'fileuploader', :message => "Image Uploaded", :color => 'yellow'}
-
-
-
-  
