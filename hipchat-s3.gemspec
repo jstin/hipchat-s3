@@ -9,12 +9,21 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Justin"]
-  s.date = "2012-02-17"
+  s.date = "2012-05-04"
   s.description = "Ruby library to upload files to s3 and alert users in hipchat with a link"
   s.email = "jd@stinware.com"
   s.extra_rdoc_files = [
     "LICENSE",
     "README.textile"
+  ]
+  s.files = [
+    ".document",
+    "LICENSE",
+    "README.textile",
+    "Rakefile",
+    "VERSION",
+    "hipchat-s3.gemspec",
+    "lib/hipchat-s3.rb"
   ]
   s.homepage = "http://github.com/jstin/hipchat-s3"
   s.require_paths = ["lib"]
