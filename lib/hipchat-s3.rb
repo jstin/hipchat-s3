@@ -20,7 +20,7 @@ class HipchatS3
 
   def create_compressed_upload(path, room, options={})
     options = {:username => 'fileuploader', :message => "File Uploaded", :color => 'yellow'}.merge(options)
-    
+
     unless tar_exists?
       @hipchat_client[room].send(username, "You don't have tar installed on host", :notify => true, :color => color)
       return
@@ -58,12 +58,12 @@ class HipchatS3
       display_uri = "https://s3.amazonaws.com/#{@s3_bucket}/#{timestamp}/#{thumb_basename}"
     end
 
-    @hipchat_client[room].send(options[:username], "#{options[:message]} <br/> <a href=\"#{uri}\"><img src=\"#{display_uri}\" /></a>", :notify => true, :color => options[:color])
+    @hipchat_client[room].send(options[:username], "#{options[:message]} <br> <a href=\"#{uri}\"><img src=\"#{display_uri}\" /></a>", :notify => true, :color => options[:color])
   end
 
 
 private
-  
+
   def tar_exists?
     `which tar`.strip != ""
   end
