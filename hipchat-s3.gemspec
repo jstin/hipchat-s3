@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "hipchat-s3"
-  s.version = "0.1.0"
+  s.version = "0.1.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Justin"]
-  s.date = "2012-05-04"
+  s.date = "2013-03-07"
   s.description = "Ruby library to upload files to s3 and alert users in hipchat with a link"
   s.email = "jd@stinware.com"
   s.extra_rdoc_files = [
